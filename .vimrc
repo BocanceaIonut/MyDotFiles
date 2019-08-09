@@ -9,8 +9,6 @@ call vundle#begin()
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-
 
 " Async syntax checking
 Plugin 'w0rp/ale'
@@ -51,8 +49,6 @@ Plugin 'tpope/vim-surround'
 Plugin 'esneider/YUNOcommit.vim'
 Plugin 'vim-scripts/camelcasemotion'
 
-Plugin 'kkpmw/sacredforest-vim'
-Plugin 'cocopon/iceberg.vim'
 " JSX
 "Plugin 'mtscout6/vim-cjsx'
 "Plugin 'digitaltoad/vim-jade'
@@ -60,11 +56,11 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 
 " Themes
-Plugin 'joshdick/onedark.vim'
+"Plugin 'joshdick/onedark.vim'
 "Plugin 'challenger-deep-theme/vim', { 'name': 'challenger_deep'  }
-Plugin 'crusoexia/vim-monokai'
-Plugin 'ajh17/spacegray.vim'
+"Plugin 'crusoexia/vim-monokai'
 "Plugin 'w0ng/vim-hybrid'
+Plugin 'altercation/vim-colors-solarized'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -75,11 +71,7 @@ let g:jsx_ext_required = 0
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
-let g:spacegray_low_contrast = 0
-let g:spacegray_use_italics = 0
-let g:spacegray_underline_search = 0
-
-
+let g:airline#extensions#branch#vcs_checks = ['untracked']
 
 set ruler
 set ttyfast
@@ -93,6 +85,8 @@ set scrolloff=3
 set showmode
 set showcmd
 set hidden
+set relativenumber
+set cursorline
 
 " Wildmenu completion "
 set wildmenu
@@ -109,8 +103,6 @@ set wildignore+=migrations "Django migrations"
 set wildignore+=*.pyc "Python Object codes"
 set wildignore+=*.orig "Merge resolution files"
 
-"set lines=999
-"set columns=999
 set number
 set incsearch
 set autoindent
@@ -192,9 +184,6 @@ nnoremap <leader>n  :new<Space>
 "}}}
 
 nmap <leader>ag <Esc>:Ack!
-map _ <C-W>_<C-W>\|
-map \ <C-W>=
-map 0 <C-W>o
 
 "nerd-tree
 nnoremap <leader>nn :NERDTreeToggle<CR>
@@ -231,6 +220,7 @@ let g:mix_format_on_save = 0
 let g:elm_setup_keybindings = 0
 let g:ale_fix_on_save = 1
 
+let g:javascript_plugin_jsdoc = 1
 let g:ale_javascript_eslint_executable = 'node_modules/eslint/bin/eslint.js'
 let g:ale_javascript_prettier_options = '--print-width 160 --single-quote --trailing-comma all --bracket-spacing --jsx-bracket-same-line'
 let g:ale_fixers = {}
@@ -246,7 +236,18 @@ let g:ale_linters = {
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#ale#error_symbol = ' ⨉ '
 let g:airline#extensions#ale#warning_symbol = ' ⚠ '
-"let g:airline_theme='base16'
+let g:airline_solarized_bg='dark'
+let g:solarized_termcolors=256
+let g:solarized_termtrans = 1
+let g:solarized_degrade = 0
+let g:solarized_bold = 0
+let g:solarized_contrast = "high"
+let g:solarized_visibility = "low"
+"let g:airline_theme='solarized'
+
+let NERDTreeQuitOnOpen = 1
+let NERDTreeMinimalUI = 1
+let NERDTreeDirArrows = 1
 
 set background=dark
 syntax enable
@@ -294,12 +295,11 @@ if has("gui_running")
     endif
 else
     set t_Co=256
-    set t_ut=
-    set termguicolors
-    "colorscheme iceberg
+    "set t_ut=
+    "set termguicolors
+    "colorscheme onedark
     "colorscheme challenger_deep
-    "colorscheme monokai
-    colorscheme spacegray
+    colorscheme solarized
 endif
 
 
