@@ -5,7 +5,10 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
+" React native snippet
 
+Plugin 'ZoomWin'
+Plugin 'tellijo/vim-react-native-snippets'
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
@@ -48,6 +51,17 @@ Plugin 'tpope/vim-sensible'
 Plugin 'tpope/vim-surround'
 Plugin 'esneider/YUNOcommit.vim'
 Plugin 'vim-scripts/camelcasemotion'
+Plugin 'cocopon/iceberg.vim'
+Plugin 'arcticicestudio/nord-vim'
+Plugin 'arcticicestudio/nord'
+Plugin 'junegunn/seoul256.vim'
+Plugin 'w0ng/vim-hybrid'
+Plugin 'chriskempson/base16-vim'
+Plugin 'bluz71/vim-moonfly-colors'
+Plugin 'mhartington/oceanic-next'
+
+
+
 
 " JSX
 "Plugin 'mtscout6/vim-cjsx'
@@ -61,6 +75,11 @@ Plugin 'mxw/vim-jsx'
 "Plugin 'crusoexia/vim-monokai'
 "Plugin 'w0ng/vim-hybrid'
 Plugin 'altercation/vim-colors-solarized'
+Plugin 'tomasr/molokai'
+Plugin 'ajh17/spacegray.vim'
+Plugin 'morhetz/gruvbox'
+Plugin 'trevordmiller/nova-vim'
+Plugin 'sheerun/vim-polyglot'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -72,6 +91,13 @@ let g:jsx_ext_required = 0
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
 let g:airline#extensions#branch#vcs_checks = ['untracked']
+
+let g:gruvbox_contrast_dark = "hard"
+let g:gruvbox_contrast_light = "hard"
+
+let g:nova_transparent = 1
+let g:hybrid_custom_term_colors = 1
+let base16colorspace=256
 
 set ruler
 set ttyfast
@@ -121,6 +147,8 @@ set formatoptions=qrn1
 " Dictionary path, from which the words are being looked up.
 set dictionary=/usr/share/dict/cracklib-small
 
+set keywordprg=google
+
 " MAPPINGS
 "
 " Get Rid of stupid Goddamned help keys
@@ -148,6 +176,12 @@ nnoremap <leader>c "+y
 nnoremap <leader>p "+p
 vnoremap <leader>c "+y
 vnoremap <leader>p "+p
+
+" quit
+nnoremap <leader>q :q<CR>
+
+" delete buffer
+nnoremap <leader>b :bd<CR>
 
 " ----------------------------------------------------------------------------
 " vim-fugitive
@@ -227,6 +261,8 @@ let g:ale_fixers = {}
 let g:ale_fixers['javascript'] = ['prettier']
 let g:ale_fixers['elixir'] = ['mix_format']
 "au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
+let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 let g:ale_linters = {
 \   'javascript': ['eslint'],
@@ -236,14 +272,17 @@ let g:ale_linters = {
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#ale#error_symbol = ' ⨉ '
 let g:airline#extensions#ale#warning_symbol = ' ⚠ '
-let g:airline_solarized_bg='dark'
-let g:solarized_termcolors=256
-let g:solarized_termtrans = 1
-let g:solarized_degrade = 0
-let g:solarized_bold = 0
-let g:solarized_contrast = "high"
-let g:solarized_visibility = "low"
+"let g:airline_solarized_bg='dark'
+"let g:solarized_termcolors=256
+"let g:solarized_termtrans = 1
+"let g:solarized_degrade = 0
+"let g:solarized_bold = 0
+"let g:solarized_contrast = "high"
+"let g:solarized_visibility = "low"
 "let g:airline_theme='solarized'
+"let g:molokai_original = 1
+"let g:rehash256 = 1
+"let g:seoul256_background = 233
 
 let NERDTreeQuitOnOpen = 1
 let NERDTreeMinimalUI = 1
@@ -256,7 +295,7 @@ syntax on
 "Folding
 set foldlevelstart=20
 set foldlevel=20
-set foldmethod=syntax
+set foldmethod=manual
 
 set backspace=indent,eol,start
 
@@ -271,6 +310,8 @@ set ssop-=folds      " do not store folds
 "expand %% to curent full path
 cabbr <expr> %% expand('%:p:h')
 set path==**         " gf rulez
+let g:moonflyTerminalColors = 0
+let g:moonflyCursorColor = 1
 
 " =========== Gvim Settings =============
 " Removing scrollbars
@@ -296,10 +337,20 @@ if has("gui_running")
 else
     set t_Co=256
     "set t_ut=
-    "set termguicolors
+    set termguicolors
     "colorscheme onedark
     "colorscheme challenger_deep
-    colorscheme solarized
+    "colorscheme molokai
+    "colorscheme spacegray
+    "colorscheme gruvbox
+    "colorscheme nova
+    colorscheme iceberg
+    "colorscheme nord
+    "colorscheme seoul256
+    "colorscheme hybrid
+    "colorscheme base16-default-dark
+    "colorscheme moonfly
+    "colorscheme OceanicNext
 endif
 
 
@@ -332,3 +383,14 @@ au InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 au InsertLeave * match ExtraWhiteSpace /\s\+$/
 
 autocmd BufWritePre * :call StripTrailingWhitespaces()
+let &t_ut=''
+" General colors
+"if has('gui_running') || has('nvim')
+    "hi Normal 		guifg=#f6f3e8 guibg=#242424
+"else
+    "" Set the terminal default background and foreground colors, thereby
+    "" improving performance by not needing to set these colors on empty cells.
+    "hi Normal guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+    "let &t_ti = &t_ti . "\033]10;#f6f3e8\007\033]11;#242424\007"
+    "let &t_te = &t_te . "\033]110\007\033]111\007"
+"endif
