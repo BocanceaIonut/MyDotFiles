@@ -1,3 +1,3 @@
 # MyDotFiles
 
-TODO: Add more descriptiove steps to set up on a new device.
+TODO: Add more descriptive steps to set up on a new device.
