@@ -59,9 +59,11 @@ Plugin 'w0ng/vim-hybrid'
 Plugin 'chriskempson/base16-vim'
 Plugin 'bluz71/vim-moonfly-colors'
 Plugin 'mhartington/oceanic-next'
-
-
-
+Plugin 'flazz/vim-colorschemes'
+Plugin 'sjl/badwolf'
+Plugin 'tpope/vim-vividchalk'
+Plugin 'rakr/vim-one'
+Plugin 'sainnhe/edge'
 
 " JSX
 "Plugin 'mtscout6/vim-cjsx'
@@ -70,7 +72,7 @@ Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
 
 " Themes
-"Plugin 'joshdick/onedark.vim'
+Plugin 'joshdick/onedark.vim'
 "Plugin 'challenger-deep-theme/vim', { 'name': 'challenger_deep'  }
 "Plugin 'crusoexia/vim-monokai'
 "Plugin 'w0ng/vim-hybrid'
@@ -279,7 +281,7 @@ let g:airline#extensions#ale#warning_symbol = ' ⚠ '
 "let g:solarized_bold = 0
 "let g:solarized_contrast = "high"
 "let g:solarized_visibility = "low"
-"let g:airline_theme='solarized'
+"let g:airline_theme='dark'
 "let g:molokai_original = 1
 "let g:rehash256 = 1
 "let g:seoul256_background = 233
@@ -290,7 +292,6 @@ let NERDTreeDirArrows = 1
 
 set background=dark
 syntax enable
-syntax on
 
 "Folding
 set foldlevelstart=20
@@ -312,6 +313,10 @@ cabbr <expr> %% expand('%:p:h')
 set path==**         " gf rulez
 let g:moonflyTerminalColors = 0
 let g:moonflyCursorColor = 1
+
+
+let g:edge_style = 'neon'
+let g:edge_disable_italic_comment = 0
 
 " =========== Gvim Settings =============
 " Removing scrollbars
@@ -339,18 +344,41 @@ else
     "set t_ut=
     set termguicolors
     "colorscheme onedark
-    "colorscheme challenger_deep
     "colorscheme molokai
     "colorscheme spacegray
     "colorscheme gruvbox
     "colorscheme nova
-    colorscheme iceberg
+    "colorscheme iceberg
     "colorscheme nord
     "colorscheme seoul256
     "colorscheme hybrid
     "colorscheme base16-default-dark
     "colorscheme moonfly
     "colorscheme OceanicNext
+    "colorscheme wombat
+    "colorscheme badwolf
+    "colorscheme vividchalk
+    colorscheme one
+    "colorscheme solarized
+    "colorscheme edge
+endif
+
+"Credit joshdick
+""Use 24-bit (true-color) mode in Vim/Neovim when outside tmux.
+"If you're using tmux version 2.2 or later, you can remove the outermost $TMUX check and use tmux's 24-bit color support
+""(see < http://sunaku.github.io/tmux-24bit-color.html#usage > for more information.)
+
+if (empty($TMUX))
+  if (has("nvim"))
+    "For Neovim 0.1.3 and 0.1.4 < https://github.com/neovim/neovim/pull/2198 >
+    let $NVIM_TUI_ENABLE_TRUE_COLOR=1
+  endif
+  "      "For Neovim > 0.1.5 and Vim > patch 7.4.1799 < https://github.com/vim/vim/commit/61be73bb0f965a895bfb064ea3e55476ac175162 >
+  "        "Based on Vim patch 7.4.1770 (`guicolors` option) < https://github.com/vim/vim/commit/8a633e3427b47286869aa4b96f2bfc1fe65b25cd >
+  "          " < https://github.com/neovim/neovim/wiki/Following-HEAD#20160511 >
+  if (has("termguicolors"))
+    set termguicolors
+  endif
 endif
 
 
