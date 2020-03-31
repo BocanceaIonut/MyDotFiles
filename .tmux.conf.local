@@ -183,7 +183,7 @@ tmux_conf_theme_status_right='#{prefix}#{pairing}#{synchronized} #{?battery_stat
 
 # status left style
 tmux_conf_theme_status_left_fg='#000000,#e4e4e4,#e4e4e4'  # black, white , white
-tmux_conf_theme_status_left_bg='#ffff00,#556B2F,#00afff'  # yellow, dark green, white blue
+tmux_conf_theme_status_left_bg='#ffff00,#074A00,#00afff'  # yellow, dark green, white blue
 tmux_conf_theme_status_left_attr='bold,none,none'
 
 # status right style
@@ -292,3 +292,6 @@ set -g history-limit 2100000000
 
 # move status line to top
 set -g status-position bottom
+
+#set -g default-terminal "tmux-256color"
+set -ga terminal-overrides ",*256col*:Tc"

@@ -12,6 +12,7 @@ Plugin 'tellijo/vim-react-native-snippets'
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
+Plugin 'vim-airline/vim-airline-themes'
 
 " Async syntax checking
 Plugin 'w0rp/ale'
@@ -281,7 +282,7 @@ let g:airline#extensions#ale#warning_symbol = ' ⚠ '
 "let g:solarized_bold = 0
 "let g:solarized_contrast = "high"
 "let g:solarized_visibility = "low"
-"let g:airline_theme='dark'
+let g:airline_theme='badwolf'
 "let g:molokai_original = 1
 "let g:rehash256 = 1
 "let g:seoul256_background = 233
@@ -422,3 +423,9 @@ let &t_ut=''
     "let &t_ti = &t_ti . "\033]10;#f6f3e8\007\033]11;#242424\007"
     "let &t_te = &t_te . "\033]110\007\033]111\007"
 "endif
+"
+if exists('+termguicolors')
+  let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+  let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  set termguicolors
+endif
