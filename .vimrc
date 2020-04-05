@@ -346,9 +346,9 @@ if has("gui_running")
         set guifont=Source\ Code\ Pro:h13
     endif
 else
-    set t_Co=256
+    "set t_Co=256
     "set t_ut=
-    set termguicolors
+    "set termguicolors
     "colorscheme onedark
     "colorscheme molokai
     "colorscheme spacegray
@@ -402,6 +402,9 @@ set nobackup
 set nowritebackup
 set noswapfile
 set synmaxcol=300
+
+highlight PmenuSel ctermfg=black ctermbg=white guibg=white
+highlight Pmenu ctermbg=blue guibg=blue
 
 function! StripTrailingWhitespaces()
     let l = line(".")
