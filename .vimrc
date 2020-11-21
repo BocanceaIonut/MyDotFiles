@@ -7,6 +7,8 @@ set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
 " React native snippet
 
+Plugin 'scrooloose/syntastic'
+
 Plugin 'ZoomWin'
 Plugin 'tellijo/vim-react-native-snippets'
 " let Vundle manage Vundle, required
@@ -15,7 +17,7 @@ Plugin 'bling/vim-airline'
 Plugin 'vim-airline/vim-airline-themes'
 
 " Async syntax checking
-Plugin 'w0rp/ale'
+Plugin 'dense-analysis/ale'
 
 " Elixir
 Plugin 'elixir-lang/vim-elixir'
@@ -71,6 +73,7 @@ Plugin 'sainnhe/edge'
 "Plugin 'digitaltoad/vim-jade'
 Plugin 'pangloss/vim-javascript'
 Plugin 'mxw/vim-jsx'
+Plugin 'MaxMEllon/vim-jsx-pretty'
 
 " Themes
 Plugin 'joshdick/onedark.vim'
@@ -83,13 +86,29 @@ Plugin 'ajh17/spacegray.vim'
 Plugin 'morhetz/gruvbox'
 Plugin 'trevordmiller/nova-vim'
 Plugin 'sheerun/vim-polyglot'
+Plugin 'junegunn/goyo.vim'
+Plugin 'junegunn/limelight.vim'
 
 call vundle#end()            " required
 filetype plugin indent on    " required
 
+"Syntastic
+let g:syntastic_javascript_checkers = ['eslint']
+let g:syntastic_javascript_eslint_exec = '$(npm bin)/eslint'
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
+
 let mapleader = ","
 
 let g:jsx_ext_required = 0
+
+let g:limelight_conceal_ctermfg = 1
 
 let g:ackprg = 'ag --nogroup --nocolor --column'
 
@@ -154,6 +173,8 @@ set keywordprg=google
 
 " MAPPINGS
 "
+
+nnoremap gp :silent %!prettier --stdin-filepath %<CR>
 " Get Rid of stupid Goddamned help keys
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
@@ -191,6 +212,9 @@ nnoremap <leader>b :bd<CR>
 " ----------------------------------------------------------------------------
 nmap     <leader>g :Gstatus<CR>gg<c-n>
 nnoremap <leader>d :Gdiff<CR>
+set diffopt=vertical
+set mouse=a
+vmap <leader>c :w !pbcopy<CR><CR>
 
 " FZF
 let g:fzf_layout = { 'down': '~50%' }
@@ -251,38 +275,54 @@ au FileType elm nnoremap <leader>. :ElmShowDocs<CR>
 au FileType elm nnoremap <leader>.. :ElmMake<CR>
 
 " Elixir
-let g:mix_format_on_save = 0
+let g:mix_format_on_save = 1
 
 " ALE
-let g:elm_setup_keybindings = 0
-let g:ale_fix_on_save = 1
+let g:elm_setup_keybindings = 1
+
+let g:ale_sign_error = '❌'
+let g:ale_sign_warning = '⚠️ '
+"ale error_symbol
+let airline#extensions#ale#error_symbol = '❌'
+
+"ale warning_symbol
+let airline#extensions#ale#warning_symbol = '⚠️ '
 
 let g:javascript_plugin_jsdoc = 1
-let g:ale_javascript_eslint_executable = 'node_modules/eslint/bin/eslint.js'
-let g:ale_javascript_prettier_options = '--print-width 160 --single-quote --trailing-comma all --bracket-spacing --jsx-bracket-same-line'
-let g:ale_fixers = {}
-let g:ale_fixers['javascript'] = ['prettier']
-let g:ale_fixers['elixir'] = ['mix_format']
+let g:ale_javascript_prettier_use_local_config = 1
+let g:ale_fixers = {
+\'javascript': ['eslint', 'prettier'],
+\'html': ['prettier'],
+\'elixir': ['mix_format'],
+\}
+let g:ale_fix_on_save = 1
+let g:ale_linters_explicit = 1
+let g:ale_lint_on_save = 1
+nnoremap <leader>af :ALEFix<cr>
+"Move between linting errors
+nnoremap ]r :ALENextWrap<CR>
+nnoremap [r :ALEPreviousWrap<CR>
 "au FileType xml setlocal equalprg=xmllint\ --format\ --recover\ -\ 2>/dev/null
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
 
 let g:ale_linters = {
-\   'javascript': ['eslint'],
+\   'javascript': ['eslint', 'prettier'],
 \   'elm': ['make'],
 \   'elixir': ['credo'],
 \}
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#ale#error_symbol = ' ⨉ '
 let g:airline#extensions#ale#warning_symbol = ' ⚠ '
-"let g:airline_solarized_bg='dark'
+let g:airline_solarized_bg='dark'
 "let g:solarized_termcolors=256
 "let g:solarized_termtrans = 1
 "let g:solarized_degrade = 0
 "let g:solarized_bold = 0
-"let g:solarized_contrast = "high"
-"let g:solarized_visibility = "low"
+let g:solarized_contrast = "high"
+let g:solarized_visibility = "high"
 let g:airline_theme='simple'
+"let g:airline_theme='serene'
 "let g:airline_mode_map = {'__':'-','c':'COMMAND','i':'INSERT','ic':'I','ix':'I','n':'NORMAL','multi':'MULTI','ni':'N','no':'N','R':'R','Rv':'R','s':'S','S':'S','':'S','t':'T','v':'VISUAL','V':'V'}
 "let g:airline_section_z = '%3p%% %3l/%L:%3v'
 let g:airline_section_y = ''
@@ -297,7 +337,7 @@ let NERDTreeMinimalUI = 1
 let NERDTreeDirArrows = 1
 
 set background=dark
-syntax enable
+syntax on
 
 "Folding
 set foldlevelstart=20
@@ -346,10 +386,9 @@ if has("gui_running")
         set guifont=Source\ Code\ Pro:h13
     endif
 else
-    "set t_Co=256
-    "set t_ut=
-    "set termguicolors
-    "colorscheme onedark
+    set t_Co=256
+    set termguicolors
+    colorscheme onedark
     "colorscheme molokai
     "colorscheme spacegray
     "colorscheme gruvbox
@@ -364,7 +403,7 @@ else
     "colorscheme wombat
     "colorscheme badwolf
     "colorscheme vividchalk
-    colorscheme one
+    "colorscheme one
     "colorscheme solarized
     "colorscheme edge
 endif
@@ -403,8 +442,8 @@ set nowritebackup
 set noswapfile
 set synmaxcol=300
 
-highlight PmenuSel ctermfg=black ctermbg=white guibg=white
-highlight Pmenu ctermbg=blue guibg=blue
+"highlight PmenuSel ctermfg=black ctermbg=white guibg=white
+"highlight Pmenu ctermbg=blue guibg=blue
 
 function! StripTrailingWhitespaces()
     let l = line(".")
@@ -422,15 +461,15 @@ au InsertLeave * match ExtraWhiteSpace /\s\+$/
 autocmd BufWritePre * :call StripTrailingWhitespaces()
 let &t_ut=''
 " General colors
-if has('gui_running') || has('nvim')
-    hi Normal 		guifg=#f6f3e8 guibg=#242424
-else
-    " Set the terminal default background and foreground colors, thereby
-    " improving performance by not needing to set these colors on empty cells.
-    hi Normal guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
-    let &t_ti = &t_ti . "\033]10;#f6f3e8\007\033]11;#242424\007"
-    let &t_te = &t_te . "\033]110\007\033]111\007"
-endif
+"if has('gui_running') || has('nvim')
+    "hi Normal 		guifg=#f6f3e8 guibg=#242424
+"else
+    "" Set the terminal default background and foreground colors, thereby
+    "" improving performance by not needing to set these colors on empty cells.
+    "hi Normal guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+    "let &t_ti = &t_ti . "\033]10;#f6f3e8\007\033]11;#242424\007"
+    "let &t_te = &t_te . "\033]110\007\033]111\007"
+"endif
 
 "if exists('+termguicolors')
   "let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
