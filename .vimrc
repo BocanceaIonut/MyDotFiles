@@ -5,6 +5,9 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 
 call vundle#begin()
+" HTML
+Plugin 'othree/html5.vim'
+
 " React native snippet
 
 Plugin 'scrooloose/syntastic'
@@ -96,15 +99,21 @@ Plugin 'nlknguyen/papercolor-theme'
 Plugin 'othree/yajs.vim'
 Plugin 'sainnhe/vim-color-forest-night'
 
+" Erlang
+Plugin 'vim-erlang/vim-erlang-tags'
+Plugin 'vim-erlang/vim-erlang-omnicomplete'
+
 call vundle#end()            " required
 filetype plugin indent on    " required
 
 "Syntastic
+let g:syntastic_mode_map = { 'mode': 'passive', 'active_filetypes': [],'passive_filetypes': [] }
 let g:syntastic_javascript_checkers = ['eslint']
 let g:syntastic_javascript_eslint_exec = '$(npm bin)/eslint'
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
+nnoremap <Leader>h :SyntasticCheck<CR>
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -140,7 +149,7 @@ set scrolloff=5
 set showmode
 set showcmd
 set hidden
-set relativenumber
+set norelativenumber
 set cursorline
 
 " Wildmenu completion "
@@ -180,13 +189,32 @@ set keywordprg=google
 
 " MAPPINGS
 "
-
+nmap <C-h> <C-W>h
+nmap <C-l> <C-W>l
+nmap <C-j> <C-W>j
+nmap <C-k> <C-W>k
+nmap <C-\> :BufExplorer<CR>
+silent! map <F3> :NERDTreeFind<CR>
+nnoremap <silent> <C-p> :FZF<CR>
+nmap <C-f>j :%!python -m json.tool<CR>
+vnoremap <silent><Leader>c :'<,'>w !xclip -selection clipboard<CR><CR>
+vnoremap <silent><Leader>y "yy <Bar> :call system('xclip', @y)<CR>
 nnoremap gp :silent %!prettier --stdin-filepath %<CR>
 " Get Rid of stupid Goddamned help keys
 inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
+au BufNewFile,BufRead *.erl
+  \ set tabstop=2 |
+	\ set softtabstop=2 |
+	\ set shiftwidth=2 |
+	\ set textwidth=79 |
+	\ set expandtab |
+	"\ set autoindent |
+	\ set fileformat=unix |
+	\ set foldmethod=syntax |
+	\ set colorcolumn=100
 " Clear last search highlighting
 nnoremap <Space> :noh<cr>
 
@@ -221,7 +249,6 @@ nmap     <leader>g :Gstatus<CR>gg<c-n>
 nnoremap <leader>d :Gdiff<CR>
 set diffopt=vertical
 set mouse=a
-vmap <leader>c :w !pbcopy<CR><CR>
 
 " FZF
 let g:fzf_layout = { 'down': '~50%' }
@@ -258,7 +285,7 @@ nnoremap <leader>nn :NERDTreeToggle<CR>
 nnoremap <leader>nf :NERDTreeFind<CR>
 
 
-"Save quicker with <leader>w - saves all buffers
+"Save quicker with <leader>s - saves all buffers
 nnoremap <leader>s :wa<CR>
 "Switch between windows in the same tab -------------------------{{{
 nnoremap <silent> <C-h> <C-w>h
@@ -307,7 +334,7 @@ let g:ale_fixers = {
 let g:ale_fix_on_save = 1
 let g:ale_linters_explicit = 1
 let g:ale_lint_on_save = 1
-nnoremap <leader>af :ALEFix<cr>
+nnoremap <leader>f :ALEFix<cr>
 "Move between linting errors
 nnoremap ]r :ALENextWrap<CR>
 nnoremap [r :ALEPreviousWrap<CR>
@@ -332,6 +359,8 @@ let g:airline_left_sep = "\ue0b8"
 let g:airline_right_sep = "\ue0ba"
 "let g:lightline = {'colorscheme' : 'everforest'}
 let g:airline_powerline_fonts = 1
+let g:airline#extensions#ale#error_symbol = ''
+let g:airline#extensions#ale#warning_symbol = ''
 "let g:airline#extensions#ale#error_symbol = '❌'
 "let g:airline#extensions#ale#warning_symbol = '⚠️ '
 
@@ -362,7 +391,7 @@ let NERDTreeDirArrows = 1
 
 let g:solarized_termcolors=256
 set background=dark
-syntax on
+syntax enable
 
 "Folding
 set foldlevelstart=20
@@ -382,14 +411,14 @@ set ssop-=folds      " do not store folds
 "expand %% to curent full path
 cabbr <expr> %% expand('%:p:h')
 set path==**         " gf rulez
-let g:moonflyCursorColor = 1
-let g:moonflyTerminalColors = 0
-let g:moonflyTransparent = 1
-let g:moonflyUndercurls = 1
+"let g:moonflyCursorColor = 1
+"let g:moonflyTerminalColors = 0
+"let g:moonflyTransparent = 1
+"let g:moonflyUndercurls = 1
 
 
-let g:edge_style = 'neon'
-let g:edge_disable_italic_comment = 0
+"let g:edge_style = 'neon'
+"let g:edge_disable_italic_comment = 0
 
 let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
 let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
@@ -494,15 +523,15 @@ au InsertLeave * match ExtraWhiteSpace /\s\+$/
 autocmd BufWritePre * :call StripTrailingWhitespaces()
 let &t_ut=''
 " General colors
-"if has('gui_running') || has('nvim')
-    "hi Normal 		guifg=#f6f3e8 guibg=#242424
-"else
-    "" Set the terminal default background and foreground colors, thereby
-    "" improving performance by not needing to set these colors on empty cells.
-    "hi Normal guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
-    "let &t_ti = &t_ti . "\033]10;#f6f3e8\007\033]11;#242424\007"
-    "let &t_te = &t_te . "\033]110\007\033]111\007"
-"endif
+if has('gui_running') || has('nvim')
+    hi Normal 		guifg=#f6f3e8 guibg=#242424
+else
+    " Set the terminal default background and foreground colors, thereby
+    " improving performance by not needing to set these colors on empty cells.
+    hi Normal guifg=NONE guibg=NONE ctermfg=NONE ctermbg=NONE
+    let &t_ti = &t_ti . "\033]10;#f6f3e8\007\033]11;#242424\007"
+    let &t_te = &t_te . "\033]110\007\033]111\007"
+endif
 
 if exists('+termguicolors')
   let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"

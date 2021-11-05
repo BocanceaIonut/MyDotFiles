@@ -9,8 +9,8 @@ fi
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 export TERM=xterm-kitty
-export LC_ALL=un_US.UTF-8
-export LANG=un_US.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
 
 # Path to your oh-my-zsh installation.
 export ZSH="/Users/i.bocancea/.oh-my-zsh"
@@ -83,6 +83,9 @@ plugins=(git zsh-autosuggestions zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
+if [[ $TERM == "xterm-kitty" ]]; then
+    ZSH_HIGHLIGHT_STYLES[comment]="fg=white,bold"
+fi
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -153,3 +156,5 @@ export NVM_DIR="/Users/i.bocancea/.nvm"
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 export ERL_AFLAGS="+pc unicode -kernel shell_history enabled" # iex history
+
+. ~/kerl/22.3.4.9/activate
