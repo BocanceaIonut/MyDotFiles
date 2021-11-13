@@ -4,6 +4,7 @@
 1. Install Kitty terminal: `curl -L https://sw.kovidgoyal.net/kitty/installer.sh | sh /dev/stdin`
 2. Install homebrew: `/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"`
 3. Install git: `brew install git`
+4. To increase cursor speed: `System Preferences => Keyboard => Key Repeat Rate`
 
 **NOTE: After installing git clone this repo where you want.**
 
