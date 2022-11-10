@@ -9,11 +9,11 @@ call vundle#begin()
 Plugin 'othree/html5.vim'
 
 " React native snippet
+Plugin 'tellijo/vim-react-native-snippets'
 
 Plugin 'scrooloose/syntastic'
 
-Plugin 'ZoomWin'
-Plugin 'tellijo/vim-react-native-snippets'
+Plugin 'thosakwe/vim-flutter'
 " let Vundle manage Vundle, required
 Plugin 'gmarik/Vundle.vim'
 Plugin 'bling/vim-airline'
@@ -28,16 +28,12 @@ Plugin 'slashmili/alchemist.vim'
 Plugin 'BjRo/vim-extest'
 Plugin 'mhinz/vim-mix-format'
 Plugin 'mmorearty/elixir-ctags'
-" End for elixir plugins
-"
-Plugin 'Shougo/deoplete.nvim'
 
+Plugin 'Shougo/deoplete.nvim'
 Plugin 'elmcast/elm-vim'
 
 Plugin 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all'  }
 Plugin 'junegunn/fzf.vim'
-
-
 
 Plugin 'ervandew/supertab'
 "Plugin 'godlygeek/csapprox'
@@ -99,9 +95,14 @@ Plugin 'nlknguyen/papercolor-theme'
 Plugin 'othree/yajs.vim'
 Plugin 'sainnhe/vim-color-forest-night'
 
+"Minimap
+Plugin 'wfxr/minimap.vim'
+
+
 " Erlang
 Plugin 'vim-erlang/vim-erlang-tags'
 Plugin 'vim-erlang/vim-erlang-omnicomplete'
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -114,6 +115,8 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 nnoremap <Leader>h :SyntasticCheck<CR>
+
+set re=0
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -355,8 +358,8 @@ let g:everforest_disable_italic_comment = 1
 "let g:everforest_current_word = 'bold'
 
 set guifont=DroidSansMono\ Nerd\ Font\ 12
-let g:airline_left_sep = "\ue0b8"
-let g:airline_right_sep = "\ue0ba"
+"let g:airline_left_sep = "\ue0b8"
+"let g:airline_right_sep = "\ue0ba"
 "let g:lightline = {'colorscheme' : 'everforest'}
 let g:airline_powerline_fonts = 1
 let g:airline#extensions#ale#error_symbol = ''
@@ -373,8 +376,8 @@ let g:airline#extensions#ale#warning_symbol = ''
 "let g:solarized_visibility = "high"
 "let g:airline_theme='simple'
 "let g:airline_theme='luna'
-"let g:airline_theme='serene'
-let g:airline_theme='everforest'
+let g:airline_theme='serene'
+"let g:airline_theme='everforest'
 "let g:airline_theme='oceanicnext'
 "let g:airline_mode_map = {'__':'-','c':'COMMAND','i':'INSERT','ic':'I','ix':'I','n':'NORMAL','multi':'MULTI','ni':'N','no':'N','R':'R','Rv':'R','s':'S','S':'S','':'S','t':'T','v':'VISUAL','V':'V'}
 "let g:airline_section_z = '%3p%% %3l/%L:%3v'
@@ -444,8 +447,8 @@ if has("gui_running")
         set guifont=Source\ Code\ Pro:h13
     endif
 else
-    "set t_Co=256
-    set termguicolors
+    set t_Co=256
+    "set termguicolors
     "colorscheme papercolor
     "colorscheme onedark
     "colorscheme molokai
@@ -453,7 +456,7 @@ else
     "colorscheme gruvbox
     "colorscheme nova
     "colorscheme iceberg
-    "colorscheme nord
+    colorscheme nord
     "colorscheme seoul256
     "colorscheme hybrid
     "colorscheme base16-default-dark
@@ -467,7 +470,7 @@ else
     "colorscheme edge
     "colorscheme space-vim-dark
     "colorscheme tomorrow
-    colorscheme everforest
+    "colorscheme everforest
 endif
 
 "Credit joshdick
