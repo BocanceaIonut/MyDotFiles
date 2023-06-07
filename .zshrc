@@ -11,10 +11,10 @@
 export TERM=xterm-kitty
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
-export PATH="$PATH:/Users/bocancea/Work/flutter/bin"
+export PATH="$PATH:/Users/i.bocancea/Work/flutter/bin"
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/bocancea/.oh-my-zsh"
+export ZSH="/Users/i.bocancea/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -153,7 +153,7 @@ alias ga="git add"
 alias gaa="git add ."
 
 export NVM_DIR=~/.nvm
-source $(brew --prefix nvm)/nvm.sh
+# source $(brew --prefix nvm)/nvm.sh
 #export NVM_DIR="/Users/bocancea/.nvm"
 #[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 
