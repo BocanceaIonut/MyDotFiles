@@ -1,8 +1,4 @@
 list=( ${(Q)"${(z)$(<<\EO:list
-<<<<<<< HEAD
-'aspell-dictionaries' 'determine-rebottle-runners' 'postgresql-upgrade-database'
-=======
 'aspell-dictionaries' 'determine-rebottle-runners' 'postgresql-upgrade-database' 'services'
->>>>>>> 2eceb8b (nvim changes)
 EO:list
 )}"} )
