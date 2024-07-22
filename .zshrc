@@ -8,7 +8,7 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
-export TERM=xterm-kitty
+# export TERM=xterm-kitty
 export LANG=en_US.UTF-8
 export LC_ALL=en_US.UTF-8
 export PATH="$PATH:/Users/i.bocancea/Work/flutter/bin"
@@ -20,9 +20,9 @@ export ZSH="/Users/i.bocancea/.oh-my-zsh"
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/robbyrussell/oh-my-zsh/wiki/Themes
-#ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 ZSH_THEME=agnoster
-#ZSH_THEME=robbyrussell
+# ZSH_THEME=robbyrussell
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -121,6 +121,11 @@ alias v="nvim"
 
 alias c="clear"
 
+alias ls="eza --icons=always"
+
+eval "$(zoxide init zsh)"
+alias cd="z"
+
 # Git aliases
 
 alias gl="git log"
@@ -183,3 +188,10 @@ export KERL_CONFIGURE_OPTIONS="--without-javac --with-ssl=$(brew --prefix openss
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 . ~/kerl/23.3.4.16/activate
 test -s "$HOME/.kiex/scripts/kiex" && source "$HOME/.kiex/scripts/kiex"
+export ANSIBLE_VAULT_PASSWORD_FILE=~/.ansible-vault/cpgw.secret
+
+# Created by `pipx` on 2024-07-17 12:05:41
+export PATH="$PATH:/Users/i.bocancea/.local/bin"
+
+#rebar3
+export PATH=/Users/i.bocancea/.cache/rebar3/bin:$PATH
