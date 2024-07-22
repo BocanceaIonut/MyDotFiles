@@ -195,3 +195,6 @@ export PATH="$PATH:/Users/i.bocancea/.local/bin"
 
 #rebar3
 export PATH=/Users/i.bocancea/.cache/rebar3/bin:$PATH
+
+export ANDROID_HOME=/Users/bocancea/Library/Android/sdk
+export PATH=$PATH:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools

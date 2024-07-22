@@ -95,10 +95,6 @@ Plugin 'nlknguyen/papercolor-theme'
 Plugin 'othree/yajs.vim'
 Plugin 'sainnhe/vim-color-forest-night'
 
-"Minimap
-Plugin 'wfxr/minimap.vim'
-
-
 " Erlang
 Plugin 'vim-erlang/vim-erlang-tags'
 Plugin 'vim-erlang/vim-erlang-omnicomplete'
