@@ -195,3 +195,6 @@ export PATH="$PATH:/Users/i.bocancea/.local/bin"
 
 #rebar3
 export PATH=/Users/i.bocancea/.cache/rebar3/bin:$PATH
+
+#nix
+export PATH=$PATH:/nix/var/nix/profiles/default/bin/
